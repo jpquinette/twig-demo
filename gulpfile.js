@@ -1,19 +1,25 @@
-const gulp = require("gulp");
-const sass = require("gulp-sass")(require("sass"));
-const uglify = require("gulp-uglify");
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const browserSync = require('browser-sync').create();
 
-gulp.task("styles", function () {
-    return gulp
-        .src("src/assets/css/**/*.scss")
-        .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
-        .pipe(gulp.dest("dist/css"));
+// Compile SCSS → CSS
+gulp.task('sass', function () {
+    return gulp.src('src/assets/css/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('dist/css'))
+        .pipe(browserSync.stream());
 });
 
-gulp.task("scripts", function () {
-    return gulp
-        .src("src/assets/js/**/*.js")
-        .pipe(uglify())
-        .pipe(gulp.dest("dist/js"));
+// Serveur PHP + Browsersync
+gulp.task('serve', function () {
+    browserSync.init({
+        proxy: "localhost:8000", // ton serveur PHP
+        open: true
+    });
+
+    gulp.watch('src/assets/css/**/*.scss', gulp.series('sass'));
+    gulp.watch(['src/templates/**/*.twig', 'src/data/**/*.json', '*.php']).on('change', browserSync.reload);
 });
 
-gulp.task("default", gulp.parallel("styles", "scripts"));
+// Tâche par défaut
+gulp.task('default', gulp.series('sass', 'serve'));
