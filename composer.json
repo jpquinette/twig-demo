@@ -1,0 +1,6 @@
+{
+    "name": "jp/twig-demo",
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}
