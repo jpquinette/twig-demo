@@ -40,6 +40,18 @@ $articles = [
         "excerpt" => "Pas d’augmentation des moyens pour Matignon afin de donner l’exemple.",
         "url" => "#",
         "image" => "https://www.franceinfo.fr/pictures/sjHKT0pyW7fXlUBCnrZCIcjjxtE/0x0:1433x806/2656x1494/filters:format(avif):quality(50)/2025/09/29/juliettemeadel-68da39280c368673310378.jpg"
+    ],
+    [
+        "title" => 'Emmanuel Macron bat un nouveau record d\'impopularité, selon le baromètre d\'Odoxa',
+        "excerpt" => "Le président de la République dégringole de 6 points par rapport à juin, pour atteindre 22% de popularité, le niveau le plus bas de ses deux mandats, selon l'institut de sondage.",
+        "url" => "#",
+        "image" => "https://www.franceinfo.fr/pictures/iLych_sPB7trZnMAt-Yf4yYDoVU/0x106:1024x682/2656x1494/filters:format(avif):quality(50)/2025/09/30/000-76nc8u3-68db974b3ba6f557246666.jpg"
+    ],
+     [
+        "title" => 'Le RN ne censurera pas le gouvernement de Sébastien Lecornu si le budget contient des baisses d\'impôts et de dépenses, annonce Jean-Philippe Tanguy',
+        "excerpt" => 'Le Rassemblement national souhaite "des baisses d\'impôts sur les classes moyennes et populaires, (...) sur ceux qui travaillent", a détaillé le député.',
+        "url" => "#",
+        "image" => "https://www.franceinfo.fr/pictures/VUhlwRteFtTWPtt4RpjTLfag_ds/0x53:1024x629/2656x1494/filters:format(avif):quality(50)/2025/09/30/075-pinto-sessiono250908-npsvy-68db8094d2ea0778272329.jpg"
     ]
 ];
 
