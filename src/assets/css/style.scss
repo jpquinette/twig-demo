@@ -1,8 +1,25 @@
-body{background: #EEE; font-family: 'Montserrat', sans-serif;}
+// Variables Sass
+$body-bg:#EEE;
+$font-family: 'Montserrat', sans-serif;
+$card-border: none;
+$card-title-font-size: 1em;
+$card-title-font-weight: bold;
 
-.card{border:none}
+// Import Google Font
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
-.card-title{
-    font-weight: bold;
-    font-size: 1em;
+// Styles globaux
+body {
+  background: $body-bg;
+  font-family: $font-family;
+}
+
+// Styles des cartes
+.card {
+  border: $card-border;
+
+  .card-title {
+    font-weight: $card-title-font-weight;
+    font-size: $card-title-font-size;
+  }
 }

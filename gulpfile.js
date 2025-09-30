@@ -1,25 +1,41 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
+const cleanCSS = require('gulp-clean-css');
+const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 
-// Compile SCSS → CSS
-gulp.task('sass', function () {
-    return gulp.src('src/assets/css/**/*.scss')
-        .pipe(sass({ includePaths: ['node_modules'] }).on('error', sass.logError))
-        .pipe(gulp.dest('dist/css'))
-        .pipe(browserSync.stream());
-});
+// paths
+const paths = {
+    scss: 'src/assets/css/**/*.scss',
+    cssDest: 'dist/css',
+    templates: ['src/templates/**/*.twig', 'src/data/**/*.json', '*.php']
+};
 
-// Serveur PHP + Browsersync
-gulp.task('serve', function () {
+// Tâche SCSS : compile + minifie + sourcemaps
+function styles() {
+    return gulp.src('src/assets/css/style.scss')
+        .pipe(sourcemaps.init()) 
+        .pipe(sass().on('error', sass.logError)) 
+        .pipe(cleanCSS({ compatibility: 'ie8' })) 
+        .pipe(rename({ suffix: '.min' })) 
+        .pipe(sourcemaps.write('.')) 
+        .pipe(gulp.dest(paths.cssDest))
+        .pipe(browserSync.stream()); // live reload CSS
+}
+
+// BrowserSync + watch
+function serve() {
     browserSync.init({
-        proxy: "localhost:8000", // ton serveur PHP
+        proxy: "localhost:8000", 
         open: true
     });
 
-    gulp.watch('src/assets/css/**/*.scss', gulp.series('sass'));
-    gulp.watch(['src/templates/**/*.twig', 'src/data/**/*.json', '*.php']).on('change', browserSync.reload);
-});
+    gulp.watch(paths.scss, styles); // watch SCSS
+    gulp.watch(paths.templates).on('change', browserSync.reload); // watch twig/json/php
+}
 
-// Tâche par défaut
-gulp.task('default', gulp.series('sass', 'serve'));
+// Export des tâches
+exports.styles = styles;
+exports.serve = serve;
+exports.default = gulp.series(styles, serve);
