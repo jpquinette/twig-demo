@@ -1,19 +1,26 @@
 # Utilise l'image officielle PHP 8.3 CLI
 FROM php:8.3-cli
 
-# Installer les extensions PHP nécessaires
-RUN docker-php-ext-install mbstring
+# Installer les dépendances pour mbstring et autres extensions
+RUN apt-get update && apt-get install -y \
+    libonig-dev \
+    git \
+    unzip \
+    zip \
+    && docker-php-ext-install mbstring \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Copier tous les fichiers du projet dans le conteneur
+# Copier le projet
 COPY . /app
 
 # Installer Composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-RUN composer install
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && composer install
 
 # Exposer le port
 EXPOSE 10000
