@@ -1,2 +1,2 @@
-@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap);body{background:#eee;font-family:Montserrat,sans-serif}.card{border:none}.card .card-title{font-weight:700;font-size:1em}
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap);body{background:#000;font-family:Montserrat,sans-serif}.card{border:none;max-width:400px;margin:0 auto;background:#262626;color:#fff}.card .card-title{font-weight:700;font-size:1em}
 /*# sourceMappingURL=style.min.css.map */

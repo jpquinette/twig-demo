@@ -1,7 +1,9 @@
 // Variables Sass
-$body-bg:#EEE;
+$body-bg: #000;
 $font-family: 'Montserrat', sans-serif;
 $card-border: none;
+$card-bg: #262626;
+$card-text: #FFF;
 $card-title-font-size: 1em;
 $card-title-font-weight: bold;
 
@@ -17,9 +19,15 @@ body {
 // Styles des cartes
 .card {
   border: $card-border;
+  max-width: 400px;  
+  margin: 0 auto;   
+  background: $card-bg;
+  color: $card-text;
 
   .card-title {
     font-weight: $card-title-font-weight;
     font-size: $card-title-font-size;
   }
+
+
 }

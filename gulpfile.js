@@ -8,21 +8,22 @@ const browserSync = require('browser-sync').create();
 // paths
 const paths = {
     scss: 'src/assets/css/**/*.scss',
-    cssDest: 'dist/css',
+    cssDest: 'public/dist/css',
     templates: ['src/templates/**/*.twig', 'src/data/**/*.json', '*.php']
 };
 
 // Tâche SCSS : compile + minifie + sourcemaps
 function styles() {
-    return gulp.src('src/assets/css/style.scss')
+    return gulp.src(paths.scss)  // ← compile **tous les fichiers SCSS**
         .pipe(sourcemaps.init()) 
         .pipe(sass().on('error', sass.logError)) 
         .pipe(cleanCSS({ compatibility: 'ie8' })) 
         .pipe(rename({ suffix: '.min' })) 
         .pipe(sourcemaps.write('.')) 
         .pipe(gulp.dest(paths.cssDest))
-        .pipe(browserSync.stream()); // live reload CSS
+        .pipe(browserSync.stream());
 }
+
 
 // BrowserSync + watch
 function serve() {
