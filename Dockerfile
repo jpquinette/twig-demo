@@ -1,29 +1,32 @@
-# Utilise l'image officielle PHP 8.3 CLI
+# Utilise PHP 8.3
 FROM php:8.3-cli
 
-# Installer les dépendances pour mbstring et autres extensions
+# Installer dépendances système
 RUN apt-get update && apt-get install -y \
-    libonig-dev \
-    git \
-    unzip \
-    zip \
+    git unzip zip curl nodejs npm \
     && docker-php-ext-install mbstring \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Définir le répertoire de travail
+# Crée le dossier de travail
 WORKDIR /app
 
-# Copier le projet
-COPY . /app
+# Copier tous les fichiers
+COPY . .
 
 # Installer Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && composer install
+    && rm composer-setup.php
 
-# Exposer le port
+# Installer dépendances PHP et JS
+RUN composer install && npm install
+
+# Compiler les styles avec Gulp
+RUN npx gulp styles && cp -r dist public/dist
+
+# Exposer le port utilisé par Render
 EXPOSE 10000
 
-# Lancer le serveur PHP
+# Démarre le serveur PHP intégré
 CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
